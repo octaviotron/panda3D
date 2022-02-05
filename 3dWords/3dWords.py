@@ -6,7 +6,14 @@ import os
 import sys
 import bpy
 
+char_spacing = 1.2
+font_extrude = .06
+font_bevel = 0.05
+model_color = (0,0,1,1)
+
 def create_model(word, font_name, outout_dir):
+	global char_spacing, font_extrude, font_bevel, model_color
+
 	# Delete all old fonts and meshes (cube)
 	for obj in bpy.data.objects:
 		if obj.type == 'FONT' or obj.type=="MESH":
@@ -20,10 +27,10 @@ def create_model(word, font_name, outout_dir):
 	text_obj.data.name = word
 	text_obj.data.body = word
 	text_obj.data.size = 2
-	text_obj.data.space_character = 1.2
+	text_obj.data.space_character = char_spacing
 	text_obj.data.font = bpy.data.fonts[font_name]
-	text_obj.data.extrude = .06
-	text_obj.data.bevel_depth = 0.05
+	text_obj.data.extrude = font_extrude
+	text_obj.data.bevel_depth = font_bevel
 	text_obj.data.bevel_resolution = 3
 	text_obj.select_set(True)
 
@@ -40,7 +47,7 @@ def create_model(word, font_name, outout_dir):
 	mat = bpy.data.materials.get("Material")
 	principled = mat.node_tree.nodes['Principled BSDF']
 	mat.use_nodes = True
-	principled.inputs['Base Color'].default_value = (0,0,1,1)
+	principled.inputs['Base Color'].default_value = model_color
 	ob.data.materials.append(mat)
 	ob.select_set(True)
 
