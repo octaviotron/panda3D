@@ -39,3 +39,10 @@ Fixed blue color has been defined in code and of course may be changed for any o
 Make a clean install of Panda3d and test dependencies.
 
 Make a INSTALL section
+
+## ABOUT
+
+This is a work based in https://github.com/wixette/font-to-3d-models script.
+
+You can send any comments/advice to octavio.rossell@gmail.com
+
