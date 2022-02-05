@@ -1,7 +1,9 @@
 
 # 3dWords
 
-Script to automate creation of 3D words for Panda3d Engine
+Script to automate creation of 3D words for Panda3d Engine.
+
+It uses Blender to make the model (text-mesh-extrude-bevel-add material), export it to a temp DAE file, then make DAE to EGG and EGG to BAM conversion.
 
 ## Usage:
 
@@ -38,7 +40,7 @@ Fixed blue color has been defined in code and of course may be changed for any o
 
 Make a clean install of Panda3d and test dependencies.
 
-Make a INSTALL section
+Make a INSTALL section.
 
 ## ABOUT
 
