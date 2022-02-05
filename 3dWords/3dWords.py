@@ -23,8 +23,8 @@ def create_model(word, font_name, outout_dir):
 	# Adds a new text object.
 	bpy.ops.object.text_add()
 	text_obj = bpy.data.objects['Text']
-	text_obj.name = word
-	text_obj.data.name = word
+	text_obj.name = "texto"
+	text_obj.data.name = "texto"
 	text_obj.data.body = word
 	text_obj.data.size = 2
 	text_obj.data.space_character = char_spacing
