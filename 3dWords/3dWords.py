@@ -63,6 +63,14 @@ def create_model(word, font_name, outout_dir):
 		if obj.type=="MESH":
 			obj.select_set(True)
 
+	blend_file = 'word.blend'
+	blend_path = os.path.join(outout_dir, blend_file)
+	os.system('rm -f '+blend_path)
+	blend1_file = 'word.blend1'
+	blend1_path = os.path.join(outout_dir, blend1_file)
+	os.system('rm -f '+blend1_path)
+	bpy.ops.wm.save_mainfile(filepath=blend_path,check_existing = False)
+
 	dae_file = 'word.dae'
 	dae_path = os.path.join(outout_dir, dae_file)
 	os.system('rm -f '+dae_path)
