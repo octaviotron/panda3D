@@ -9,6 +9,8 @@ Script to automate creation of 3D words for Panda3d Engine
 blender -b -P 3dWords.py -- "<word>"
 ```
 
+You will need a "font.ttf" file in current dir. Provided one is a copy of sansbold.ttf distributed with Debian Bullseye. Any ttf will work, ensure if replacing use one with Extended ASCII characters (ñ, á, ü, etc)
+
 ## Requirements
 
 - Blender > 2.9
