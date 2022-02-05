@@ -23,10 +23,10 @@ Resulting file will be created as "out/word.bam" file. One "sample.bam" is provi
 
 On top of script file are the following defined default values:
 
-char_spacing = separation between ward letters (default: 1.2)
-font_extrude = heigh of mesh characters (default: 0.06)
-font_bevel = bevel curve (default: 0.05)
-model_color = Blender "Principled BSDF" Base Color RGBA value (default: 0,0,1,1 (blue) )
+- char_spacing = separation between ward letters (default: 1.2)
+- font_extrude = heigh of mesh characters (default: 0.06)
+- font_bevel = bevel curve (default: 0.05)
+- model_color = Blender "Principled BSDF" Base Color RGBA value (default: 0,0,1,1 (blue) )
 
 ## About Model Material
 
