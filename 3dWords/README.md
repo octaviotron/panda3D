@@ -11,6 +11,8 @@ blender -b -P 3dWords.py -- "<word>"
 
 You will need a "font.ttf" file in current dir. Provided one is a copy of sansbold.ttf distributed with Debian Bullseye. Any ttf will work, ensure if replacing use one with Extended ASCII characters (ñ, á, ü, etc)
 
+Resulting file will be created as "out/word.bam" file. One "sample.bam" is provided for testing. 
+
 ## Requirements
 
 - Blender > 2.9
