@@ -15,6 +15,7 @@
 
 from panda3d.core import Vec4, Vec3
 from panda3d.core import AmbientLight
+from panda3d.core import AntialiasAttrib
 from panda3d.core import ClockObject
 from panda3d.core import WindowProperties
 from direct.task import Task
@@ -42,6 +43,8 @@ def SetEnv():
 
 	globalClock.setMode(ClockObject.MLimited)
 	globalClock.setFrameRate(30)
+
+	render.setAntialias(AntialiasAttrib.MMultisample)
 
 	light.Direccional(conf.scene, 0.9)
 	light.Ambient(conf.scene,0.1)
