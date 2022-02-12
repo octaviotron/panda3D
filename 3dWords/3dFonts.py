@@ -64,30 +64,34 @@ def create_model(word, font_name, outout_dir):
 		if obj.type=="MESH":
 			obj.select_set(True)
 
-	blend_file = 'word.blend'
+	blend_file = word+'.blend'
 	blend_path = os.path.join(outout_dir, blend_file)
 	os.system('rm -f '+blend_path)
-	blend1_file = 'word.blend1'
+	blend1_file = word+'.blend1'
 	blend1_path = os.path.join(outout_dir, blend1_file)
 	os.system('rm -f '+blend1_path)
 	bpy.ops.wm.save_mainfile(filepath=blend_path,check_existing = False)
 
-	dae_file = 'word.dae'
+	dae_file = word+'.dae'
 	dae_path = os.path.join(outout_dir, dae_file)
 	os.system('rm -f '+dae_path)
 	bpy.ops.wm.collada_export(filepath=dae_path, check_existing=False, apply_modifiers=True, selected=True, include_children=True)
+	print("DAE:", dae_path)
 
-	egg_file = "word.egg"
+	egg_file = word+".egg"
 	egg_path = os.path.join(outout_dir, egg_file)
 	os.system('rm -f '+egg_path)
 	os.system('dae2egg '+dae_path+' '+egg_path)
 	os.system('rm -f '+dae_path)
+	print("EGG:", egg_path)
 
-	bam_file = "word.bam"
+	bam_file = word+".bam"
 	bam_path = os.path.join(outout_dir, bam_file)	
 	os.system('rm -f '+bam_path)
 	os.system('egg2bam '+egg_path+' '+bam_path)
 	os.system('rm -f '+egg_path)
+	print("BAM:", bam_path)
+	print()
 	
 
 def load_font(font_path):
@@ -110,16 +114,18 @@ def main(argv):
 		print('Font file %s does not exist.' % font_path)
 		return
 
-	output_dir = os.path.abspath("./out")
+	output_dir = os.path.abspath("./out/fonts")
 	if (not os.path.isdir(output_dir)):
 		print(f'Output dir {output_dir} does not exist.')
 		return
 
 	font_name = load_font(font_path)
 
-	# Generates model.
-	word = str(argv[0])
-	create_model(word, font_name, output_dir)
+	letters = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz1234567890áéíóúÁÉÍÓÚ'
+	for l in range(0, len(letters)):
+		character = letters[l]
+		print("MODELING:", character)
+		create_model(character, font_name, output_dir)
 
 
 if __name__ == '__main__':
