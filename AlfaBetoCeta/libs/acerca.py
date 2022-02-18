@@ -19,8 +19,6 @@
 
 
 from libs import env
-from libs import picker
-from libs import modelos
 from libs import word3d
 
 def SetAcerca():
