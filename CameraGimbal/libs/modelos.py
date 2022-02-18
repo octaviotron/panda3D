@@ -26,6 +26,15 @@ def load(path, bam, rotation=0):
 	a.setR(rotation)
 	return salida
 
+def LoadGltf(path, name, rotation=0):
+	salida = NodePath(name)
+	a = loader.loadModel("modelos/"+path+"/"+name+".gltf")
+	a.reparentTo(salida)
+	a.setPos(0,0,0)
+	a.setR(rotation)
+	return salida
+
+
 def fondo(color, x, y):
 	salida = NodePath("fondo")
 	m = loader.loadModel("modelos/assets/fondo.bam")

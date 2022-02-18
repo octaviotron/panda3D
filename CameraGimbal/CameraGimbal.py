@@ -16,12 +16,17 @@ from direct.showbase.ShowBase import ShowBase
 
 from libs import env
 from libs import cameragimbal
+import simplepbr
+import gltf
 
 class ElEnvBase(ShowBase):
 	def __init__(self):
 		ShowBase.__init__(self)
+		gltf.patch_loader(self.loader)
 		base.setFrameRateMeter(True)
-		render.setShaderAuto()
+		p = simplepbr.init()
+		p.msaa_samples = 4
+		p.enable_shadows = True
 		env.SetEnv()
 		cameragimbal.Set()
 		TestGimbal()
@@ -34,10 +39,13 @@ def TestGimbal():
 
 	t = conf.scene.attachNewNode("test")
 	test = t.attachNewNode("test")
-	m = modelos.load("assets", "a")
-	m.reparentTo(test)
-	m.setZ(0.3)
-	fondo = modelos.fondo(colors.cyan_d, 1.1, 1.1)
+
+	b = modelos.load("assets", "a")
+	b.reparentTo(test)
+	b.setZ(0.5)
+	b.setY(0)
+
+	fondo = modelos.fondo(colors.cyan_d, 3, 3)
 	fondo.reparentTo(test)
 	lines = LineSegs()
 	lines.moveTo(0,0,0)
@@ -46,7 +54,7 @@ def TestGimbal():
 	node = lines.create()
 	np = NodePath(node)
 	np.reparentTo(fondo)
-	#np.setLightOff()
+	np.setLightOff()
 
 app = ElEnvBase()
 app.run()

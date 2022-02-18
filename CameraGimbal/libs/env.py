@@ -44,9 +44,9 @@ def SetEnv():
 	globalClock.setMode(ClockObject.MLimited)
 	globalClock.setFrameRate(30)
 
-	render.setAntialias(AntialiasAttrib.MMultisample)
+	#render.setAntialias(AntialiasAttrib.MMultisample)
 
-	light.Direccional(conf.scene, 0.9)
 	light.Ambient(conf.scene,0.1)
+	light.Direccional(render, 0.8)
 
 
