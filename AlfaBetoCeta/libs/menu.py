@@ -20,7 +20,7 @@
 
 from pathlib import Path
 
-from panda3d.core import NodePath, Vec3, Material, TransparencyAttrib
+from panda3d.core import NodePath, Vec3, Material, TransparencyAttrib, CardMaker
 from panda3d.core import CollisionNode, CollisionSphere
 
 from libs import env
@@ -91,13 +91,14 @@ def MkBackground():
 	bgNP = env.nodos["activo"].attachNewNode("background")
 	bganimNP = bganim.SetBgAnim("cloud")
 	bganimNP.reparentTo(bgNP)
-	bg = loader.loadModel("modelos/assets/rec10.bam")
-	bg.reparentTo(bgNP)
-	bg.setPos(0,0,-4)
-	bg.setH(90)
-	bg.setScale(1,20,0.5)
+	cm = CardMaker('background')
+	cm.setFrame(-10, 10, -20, 20)
+	card = bgNP.attachNewNode(cm.generate())
+	card.setHpr(0,-90,90)
+	card.setPos(0,0,-4)
 	textura = loader.loadTexture("modelos/assets/cielo.png")
-	bg.setTexture(textura, 1)
+	card.setTexture(textura)
+	#card.setScale(1,20,0.5)
 
 def Barra():
 	global menuNP
@@ -106,7 +107,7 @@ def Barra():
 	barra.setY(-7)
 	base = loader.loadModel("modelos/assets/rec10.bam")
 	base.setScale(4,1.1,1)
-	base.reparentTo(barra)
+	#base.reparentTo(barra)
 	base.setColor(env.color["gnuve-3"])
 	base.setZ(-0.5)
 	base.setTransparency(TransparencyAttrib.MAlpha)
