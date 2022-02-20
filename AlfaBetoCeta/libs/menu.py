@@ -55,7 +55,7 @@ def SetMenu():
 	menuNP = env.nodos["menu"]
 	for n in menuNP.getChildren(): n.removeNode()
 
-	bg = bganim.SetBgAnim("cloud")
+	bg = bganim.SetBgAnim("cloud", "righttoleft", "cielo")
 	bg.reparentTo(env.nodos["activo"])
 
 	teclas.ListenKeyboard = False
