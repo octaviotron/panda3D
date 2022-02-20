@@ -18,8 +18,9 @@
 #
 
 from panda3d.core import NodePath, Vec3, CardMaker
-from panda3d.core import TransparencyAttrib
-from direct.interval.IntervalGlobal import Interval#,Sequence, Parallel
+from panda3d.core import TransparencyAttrib, Material
+from direct.interval.LerpInterval import LerpFunctionInterval, LerpScaleInterval
+from direct.interval.IntervalGlobal import Interval, Sequence, Parallel
 
 from libs import env
 
@@ -48,10 +49,38 @@ def Animacion(modelo, tipo):
 	modelo = loader.loadModel("modelos/assets/"+modelo+".bam")
 	salida = NodePath("Anim")
 
-	if tipo == "righttoleft":  RigtToLeft(modelo).reparentTo(salida)
+	if tipo == "righttoleft": animacion = AnimRigtToLeft(modelo)
+	if tipo == "blink": animacion = AnimBlink(modelo)
+
+	animacion.reparentTo(salida)
 	return salida
 
-def RigtToLeft(modelo):
+def AnimBlink(modelo):
+	salida = NodePath("Blink")
+	material = Material()
+	material.setDiffuse((1,1,1,1))
+	material.setShininess(32)
+	pares = []
+	for x in range(1,20): pares.append([random.uniform(-10,10),random.uniform(-6,6)])
+	for par in pares:
+		duracion = random.uniform(1,10)
+		size = random.uniform(0.3,1)
+		nodo = salida.attachNewNode("modelo")
+		modelo.instanceTo(nodo)
+		nodo.setTransparency(TransparencyAttrib.MAlpha)
+		nodo.setPos(par[0],par[1], -1)
+		nodo.setMaterial(material, 1)
+		fadeinlerp = LerpFunctionInterval(nodo.setAlphaScale, toData = 0.1, fromData = 0.0, duration = duracion)
+		sizein = LerpScaleInterval(nodo, duracion, size, startScale=0.1)
+		fadein = Parallel(fadeinlerp,sizein)
+		fadeoutlerp = LerpFunctionInterval(nodo.setAlphaScale, toData = 0.0, fromData = 0.1, duration = duracion)
+		sizeout = LerpScaleInterval(nodo, duracion, 0.1, startScale=size)
+		fadeout = Parallel(fadeoutlerp,sizeout)
+		anim = Sequence(fadein,fadeout)
+		anim.loop()
+	return salida
+	
+def AnimRigtToLeft(modelo):
 	salida = NodePath("Right To Left")
 	y = -6
 	while y < 8:

@@ -27,6 +27,7 @@ from libs import env
 from libs import picker
 from libs import puntuacion
 from libs import progreso
+from libs import bganim
 
 import random
 import time
@@ -53,6 +54,9 @@ def SetMayusculas():
 
 	padre = env.nodos["activo"]
 	for n in padre.getChildren(): n.removeNode()
+
+	bg = bganim.SetBgAnim("estrella", "blink", "noche")
+	bg.reparentTo(padre)
 
 	SetLetras(padre)
 
