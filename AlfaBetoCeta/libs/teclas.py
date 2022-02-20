@@ -33,7 +33,7 @@ import time
 
 acertijo = False
 letras = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"
-puntos = 0
+puntos = 4
 logrosNP = False
 avanceNP = False
 teclaNP = False
@@ -46,6 +46,7 @@ def SetTeclas():
 	bg = bganim.SetBgAnim("mariposa", 10, "blink", "morado")
 	bg.reparentTo(padre)
 	logrosNP = padre.attachNewNode("logros")
+	logrosNP.hide()
 	avanceNP = padre.attachNewNode("avance")
 	teclaNP = padre.attachNewNode("TECLA")
 	teclaNP.setZ(-1)
@@ -68,8 +69,7 @@ def Cual():
 	global acertijo, letras
 	cual = base.loader.loadSfx("sound/teclas/tecla.wav")
 	letra = base.loader.loadSfx("sound/letras/"+acertijo+".wav")
-	#tipo = base.loader.loadSfx("sound/mensajes/"+maymin+".wav")
-	Sequence(SoundInterval(cual), SoundInterval(letra)).start()
+	Sequence(SoundInterval(cual), Wait(0.5), SoundInterval(letra)).start()
 
 def ShowTecla(padre):
 	global acertijo, teclaNP
@@ -107,23 +107,23 @@ async def resultado(result):
 		if puntos<5:
 			bien.play()
 			SetAvance(result)
-			await Task.pause(3.0)
+			await Task.pause(2.0)
 			SetTeclas()
 		else:
 			SetAvance(result)
 			puntos = 0
 			puntuacion.puntos["teclas"] += 1
-			Sequence(SoundInterval(bien), Func(Logro)).start()
+			Sequence(Func(Logro)).start()
 			puntuacion.SetPuntuacion("Teclas", "mariposa", "teclas")
-			await Task.pause(8.0)
-			#RestaRandom()
+			await Task.pause(2.5)
 			SetTeclas()
 			SetAvance()
 
 def Logro():
+	global logrosNP
 	chimes = base.loader.loadSfx("sound/assets/level-up.wav")
 	chimes.play()
-	padre = env.nodos["logro"]
+	padre = logrosNP
 	padre.show()
 	for n in padre.getChildren(): n.removeNode()
 	estrella = padre.attachNewNode("mariposa")
