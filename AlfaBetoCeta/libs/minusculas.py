@@ -48,7 +48,7 @@ def Cual():
 	global acertijo, letras
 	cual = base.loader.loadSfx("sound/mensajes/cualdetodas.wav")
 	letra = base.loader.loadSfx("sound/letras/"+acertijo+".wav")
-	Sequence(SoundInterval(cual), SoundInterval(letra)).start()
+	Sequence(SoundInterval(cual), Wait(0.5), SoundInterval(letra)).start()
 
 def SetMinusculas():
 	global estrellasNP
@@ -183,8 +183,8 @@ async def resultado(result):
 			puntos = 0
 			puntuacion.puntos["minusculas"] += 1
 			puntuacion.SetPuntuacion("Minúsculas", "estrella", "minusculas")
-			Sequence(SoundInterval(bien), Func(Logro)).start()
-			await Task.pause(8.0)
+			Sequence(Func(Logro)).start()
+			await Task.pause(2.5)
 			SetEstrellas()
 			LetraRandom()
 			
