@@ -35,10 +35,13 @@ from libs import teclas
 from libs import acerca
 from libs import puntuacion
 from libs import word3d
+from libs import nubes
 
 import sys
 
 menuNP = False
+soundtrack = False
+
 
 def SetMenu():
 	global menuNP
@@ -51,6 +54,10 @@ def SetMenu():
 
 	menuNP = env.nodos["menu"]
 	for n in menuNP.getChildren(): n.removeNode()
+
+	background = nubes.MkNubes()
+	background.reparentTo(env.nodos["activo"])
+
 	teclas.ListenKeyboard = False
 
 	titulo_letras = word3d.MkWord("Letras", "4", True)
@@ -258,4 +265,14 @@ def Click_power(x, p):
 	sys.exit()
 
 def clearscene():
+	global soundtrack
 	for n in env.nodos["menu"].getChildren(): n.removeNode()
+	if soundtrack.status() == soundtrack.PLAYING: soundtrack.stop()
+
+def SoundTrack(Task):
+	global soundtrack
+	soundtrack = base.loader.loadSfx("sound/OctavioRossell_Victoria.ogg")
+	soundtrack.setLoop(True)
+	soundtrack.play()
+	soundtrack.setVolume(0.1)
+	return Task.done
