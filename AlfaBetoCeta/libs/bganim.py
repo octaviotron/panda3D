@@ -25,15 +25,34 @@ from libs import env
 
 import random
 
-nube = False
-animnodes = []
-
-def SetBgAnim(modelo):
-	global nube, animnodes
+def SetBgAnim(modelo_anim, anim_type, imagen_fondo):
 	salida = NodePath("Background")
-	nube = loader.loadModel("modelos/assets/"+modelo+".bam")
-	anim = MkBackground()
-	anim.reparentTo(salida)
+	bg = MkBackground(imagen_fondo)
+	bg.reparentTo(salida)
+	animación = Animacion(modelo_anim, anim_type)
+	animación.reparentTo(salida)
+	return salida
+
+def MkBackground(fondo):
+	bgNP = env.nodos["activo"].attachNewNode("background")
+	cm = CardMaker('background')
+	cm.setFrame(-10, 10, -20, 20)
+	card = bgNP.attachNewNode(cm.generate())
+	card.setHpr(0,-90,90)
+	card.setPos(0,0,-4)
+	textura = loader.loadTexture("modelos/assets/"+fondo+".png")
+	card.setTexture(textura)
+	return bgNP
+
+def Animacion(modelo, tipo):
+	modelo = loader.loadModel("modelos/assets/"+modelo+".bam")
+	salida = NodePath("Anim")
+
+	if tipo == "righttoleft":  RigtToLeft(modelo).reparentTo(salida)
+	return salida
+
+def RigtToLeft(modelo):
+	salida = NodePath("Right To Left")
 	y = -6
 	while y < 8:
 		y+= 1+random.uniform(0.5,2)
@@ -42,22 +61,11 @@ def SetBgAnim(modelo):
 		nodo.setTransparency(TransparencyAttrib.MAlpha)
 		nodo.setAlphaScale(random.uniform(0.1,0.5))
 		nodo.reparentTo(salida)
-		nube.instanceTo(nodo)
+		modelo.instanceTo(nodo)
 		nodo.setPos(10,y,-1)
 		anim = nodo.posInterval(duracion, Vec3(-15, y, -1), startPos=Vec3(15, y, -1))
 		anim.loop()
 		anim.setT(duracion/random.uniform(1,10))
-	MkBackground()
 	return salida
 
-def MkBackground():
-	bgNP = env.nodos["activo"].attachNewNode("background")
-	cm = CardMaker('background')
-	cm.setFrame(-10, 10, -20, 20)
-	card = bgNP.attachNewNode(cm.generate())
-	card.setHpr(0,-90,90)
-	card.setPos(0,0,-4)
-	textura = loader.loadTexture("modelos/assets/cielo.png")
-	card.setTexture(textura)	
-	return bgNP
 
