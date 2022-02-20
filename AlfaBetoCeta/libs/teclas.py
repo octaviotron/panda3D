@@ -33,7 +33,7 @@ import time
 
 acertijo = False
 letras = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"
-puntos = 4
+puntos = 0
 logrosNP = False
 avanceNP = False
 teclaNP = False
