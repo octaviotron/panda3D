@@ -103,7 +103,7 @@ def Barra():
 	base.setAlphaScale(0.5)
 
 	acerca = barra.attachNewNode("acerca")
-	acerca.setPos(-8,0,0)
+	acerca.setPos(-5,0,0)
 	titulo_acerca = word3d.MkWord("Acerca de", 9, True)
 	titulo_acerca.setScale(0.2)
 	titulo_acerca.reparentTo(acerca)
@@ -114,7 +114,7 @@ def Barra():
 	icono_acerca.setPos(0,0.3,0)
 
 	punt = barra.attachNewNode("puntuacion")
-	punt.setPos(0,0,0)
+	punt.setPos(-8,0,0)
 	titulo_puntuacion = word3d.MkWord("Puntuación", 9, True)
 	titulo_puntuacion.setPos(0,-0.6,0)
 	titulo_puntuacion.setScale(0.2)
