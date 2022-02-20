@@ -41,6 +41,7 @@ class ElEnvBase(ShowBase):
 
 
 def AlfaBetoCeta():
+	taskMgr.add(menu.SoundTrack, 'Task -- Soundtrask')
 	menu.SetMenu()
 	barra.SetBarra()
 

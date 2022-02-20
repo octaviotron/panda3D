@@ -20,7 +20,7 @@
 
 from pathlib import Path
 
-from panda3d.core import NodePath, Vec3, Material
+from panda3d.core import NodePath, Vec3, Material, TransparencyAttrib
 from panda3d.core import CollisionNode, CollisionSphere
 
 from libs import env
@@ -35,7 +35,7 @@ from libs import teclas
 from libs import acerca
 from libs import puntuacion
 from libs import word3d
-from libs import nubes
+from libs import bganim
 
 import sys
 
@@ -55,38 +55,49 @@ def SetMenu():
 	menuNP = env.nodos["menu"]
 	for n in menuNP.getChildren(): n.removeNode()
 
-	background = nubes.MkNubes()
-	background.reparentTo(env.nodos["activo"])
+	MkBackground()
 
 	teclas.ListenKeyboard = False
 
-	titulo_letras = word3d.MkWord("Letras", "4", True)
+	titulo_letras = word3d.MkWord("Letras", 2, True)
 	v1 = vinculo(logro("estrellas"), icono("mayusculas"), "Mayúsculas")
 	v2 = vinculo(logro("estrellas"), icono("minusculas"), "Minúsculas")
 	letras = seccion("letras", titulo_letras, v1, v2)
 	letras.reparentTo(menuNP)
 	letras.setPos(-5,6,0)
 
-	titulo_numeros = word3d.MkWord("Números","0", True)
+	titulo_numeros = word3d.MkWord("Números", 3, True)
 	t1 = vinculo(logro("corazones"), icono("sumar"), "Sumar")
 	t2 = vinculo(logro("corazones"), icono("restar"), "Restar")
 	numeros = seccion("numeros", titulo_numeros, t1, t2)
 	numeros.reparentTo(menuNP)
 	numeros.setPos(5,6,0)
 
-	titulo_formas = word3d.MkWord("Geometría", "2", True)
+	titulo_formas = word3d.MkWord("Geometría", 0, True)
 	f1 = vinculo(logro("flores"), icono("formas"), "Geometría")
 	formas = seccion("formas", titulo_formas, f1)
 	formas.reparentTo(menuNP)
 	formas.setPos(-5,-1,0)	
 
-	titulo_teclas = word3d.MkWord("Teclado", "1", True)
+	titulo_teclas = word3d.MkWord("Teclado", 1, True)
 	k1 = vinculo(logro("mariposas"), icono("teclas"), "Teclas")
 	tecls = seccion("teclas", titulo_teclas, k1)
 	tecls.reparentTo(menuNP)
 	tecls.setPos(5,-1,0)
 	
 	Barra()
+
+def MkBackground():
+	bgNP = env.nodos["activo"].attachNewNode("background")
+	bganimNP = bganim.SetBgAnim("cloud")
+	bganimNP.reparentTo(bgNP)
+	bg = loader.loadModel("modelos/assets/rec10.bam")
+	bg.reparentTo(bgNP)
+	bg.setPos(0,0,-4)
+	bg.setH(90)
+	bg.setScale(1,20,0.5)
+	textura = loader.loadTexture("modelos/assets/cielo.png")
+	bg.setTexture(textura, 1)
 
 def Barra():
 	global menuNP
@@ -98,6 +109,8 @@ def Barra():
 	base.reparentTo(barra)
 	base.setColor(env.color["gnuve-3"])
 	base.setZ(-0.5)
+	base.setTransparency(TransparencyAttrib.MAlpha)
+	base.setAlphaScale(0.5)
 
 	acerca = barra.attachNewNode("acerca")
 	acerca.setPos(-8,0,0)
