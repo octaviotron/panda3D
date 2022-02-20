@@ -17,9 +17,11 @@
 #   Developed by Octavio Rossell Tabet <octavio.rossell@gmail.com>
 #
 
-from panda3d.core import NodePath, Vec3
+from panda3d.core import NodePath, Vec3, CardMaker
 from panda3d.core import TransparencyAttrib
 from direct.interval.IntervalGlobal import Interval#,Sequence, Parallel
+
+from libs import env
 
 import random
 
@@ -28,9 +30,9 @@ animnodes = []
 
 def SetBgAnim(modelo):
 	global nube, animnodes
-	salida = NodePath("nubes")
+	salida = NodePath("Background")
 	nube = loader.loadModel("modelos/assets/"+modelo+".bam")
-	anim = NubeAnim()
+	anim = MkBackground()
 	anim.reparentTo(salida)
 	y = -6
 	while y < 8:
@@ -45,11 +47,17 @@ def SetBgAnim(modelo):
 		anim = nodo.posInterval(duracion, Vec3(-15, y, -1), startPos=Vec3(15, y, -1))
 		anim.loop()
 		anim.setT(duracion/random.uniform(1,10))
+	MkBackground()
 	return salida
 
-def NubeAnim():
-	global nube
-	salida = NodePath("animacion")
-	#nube.instanceTo(salida)
-	return salida
+def MkBackground():
+	bgNP = env.nodos["activo"].attachNewNode("background")
+	cm = CardMaker('background')
+	cm.setFrame(-10, 10, -20, 20)
+	card = bgNP.attachNewNode(cm.generate())
+	card.setHpr(0,-90,90)
+	card.setPos(0,0,-4)
+	textura = loader.loadTexture("modelos/assets/cielo.png")
+	card.setTexture(textura)	
+	return bgNP
 

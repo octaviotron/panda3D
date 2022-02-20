@@ -55,7 +55,8 @@ def SetMenu():
 	menuNP = env.nodos["menu"]
 	for n in menuNP.getChildren(): n.removeNode()
 
-	MkBackground()
+	bg = bganim.SetBgAnim("cloud")
+	bg.reparentTo(env.nodos["activo"])
 
 	teclas.ListenKeyboard = False
 
@@ -86,19 +87,6 @@ def SetMenu():
 	tecls.setPos(5,-1,0)
 	
 	Barra()
-
-def MkBackground():
-	bgNP = env.nodos["activo"].attachNewNode("background")
-	bganimNP = bganim.SetBgAnim("cloud")
-	bganimNP.reparentTo(bgNP)
-	cm = CardMaker('background')
-	cm.setFrame(-10, 10, -20, 20)
-	card = bgNP.attachNewNode(cm.generate())
-	card.setHpr(0,-90,90)
-	card.setPos(0,0,-4)
-	textura = loader.loadTexture("modelos/assets/cielo.png")
-	card.setTexture(textura)
-	#card.setScale(1,20,0.5)
 
 def Barra():
 	global menuNP
