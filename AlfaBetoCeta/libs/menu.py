@@ -115,7 +115,7 @@ def Barra():
 
 	acerca = barra.attachNewNode("acerca")
 	acerca.setPos(-8,0,0)
-	titulo_acerca = word3d.MkWord("Acerca de", -1, True)
+	titulo_acerca = word3d.MkWord("Acerca de", 9, True)
 	titulo_acerca.setScale(0.2)
 	titulo_acerca.reparentTo(acerca)
 	titulo_acerca.setPos(0,-0.6,0)
@@ -126,7 +126,7 @@ def Barra():
 
 	punt = barra.attachNewNode("puntuacion")
 	punt.setPos(0,0,0)
-	titulo_puntuacion = word3d.MkWord("Puntuación", -1, True)
+	titulo_puntuacion = word3d.MkWord("Puntuación", 9, True)
 	titulo_puntuacion.setPos(0,-0.6,0)
 	titulo_puntuacion.setScale(0.2)
 	titulo_puntuacion.reparentTo(punt)
@@ -138,7 +138,7 @@ def Barra():
 
 	salir = barra.attachNewNode("salir")
 	salir.setPos(8,0,0)
-	titulo_salir = word3d.MkWord("Salir", -1, True)
+	titulo_salir = word3d.MkWord("Salir", 9, True)
 	titulo_salir.setPos(0,-0.6,0)
 	titulo_salir.setScale(0.2)
 	titulo_salir.reparentTo(salir)
