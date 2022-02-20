@@ -90,7 +90,7 @@ def MkIcono(titulo, icono_logro, punto):
 	global barra
 	total = barra.attachNewNode("total_"+titulo)
 	total.setScale(1)
-	m = word3d.MkWord(titulo, 9, True)
+	m = word3d.MkWord(titulo, 10, True)
 	m.reparentTo(total)
 	m.setY(0)
 	m.setScale(0.5)
