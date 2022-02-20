@@ -59,9 +59,9 @@ def CasaOut(x, rotar):
 	rotar.setT(0)
 
 def CasaClick(x, p):
+	for n in env.nodos["activo"].getChildren(): n.removeNode()
 	menu.SetMenu()
 	#env.nodos["menu"].show()
 	env.nodos["barra"].hide()
-	for n in env.nodos["activo"].getChildren(): n.removeNode()
 
 	
