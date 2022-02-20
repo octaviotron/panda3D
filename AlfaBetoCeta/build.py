@@ -13,6 +13,7 @@ setup(
             'include_patterns': [
                 '**/*.bam',
 				'**/*.wav',
+				'**/*.ogg',
 				'**/*.ttf'
             ],
             'plugins': [
