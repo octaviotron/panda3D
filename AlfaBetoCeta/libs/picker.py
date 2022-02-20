@@ -28,6 +28,11 @@ pq=False
 pickerRay=False
 mouseovercurrent=False
 acciones = { "overs": {}, "outs": {}, "clicks":{} }
+active = True
+
+def SetActive(bul):
+	global active
+	active = bul
 
 def SetupPicker():
 	global picker,pq,pickerRay
@@ -41,7 +46,8 @@ def SetupPicker():
 	picker.addCollider(pickerNP,pq)
 
 def MouseOverTask(task):
-	global picker,pq,mouseovercurrent,pickerRay
+	global picker,pq,mouseovercurrent,pickerRay, active
+	if not active: return Task.cont
 	if base.mouseWatcherNode.hasMouse():
 		mpos = base.mouseWatcherNode.getMouse()
 		pickerRay.setFromLens(base.camNode,mpos.getX(),mpos.getY())
