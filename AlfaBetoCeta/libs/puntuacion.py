@@ -84,18 +84,13 @@ def SetPuntuacion(titulo, icono_logro, indice):
 	for n in padre.getChildren(): n.removeNode()
 
 	barra = padre.attachNewNode("barra")
-	base = loader.loadModel("modelos/assets/rec10.bam")
-	base.setScale(4,1,1)
-	base.reparentTo(barra)
-	base.setColor(env.color["gnuve-3"])
-	base.setZ(-0.5)
 	MkIcono(titulo, icono_logro, puntos[indice])
 
 def MkIcono(titulo, icono_logro, punto):
 	global barra
 	total = barra.attachNewNode("total_"+titulo)
 	total.setScale(1)
-	m = word3d.MkWord(titulo, "4", True)
+	m = word3d.MkWord(titulo, 9, True)
 	m.reparentTo(total)
 	m.setY(0)
 	m.setScale(0.5)
