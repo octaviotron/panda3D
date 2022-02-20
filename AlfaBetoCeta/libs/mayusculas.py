@@ -35,7 +35,7 @@ import time
 
 acertijo = False
 letras = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"
-puntos = 0
+puntos = 4
 progresoNP = False
 
 def LetraRandom():
@@ -188,8 +188,8 @@ async def resultado(result):
 			puntos = 0
 			puntuacion.puntos["mayusculas"] += 1
 			puntuacion.SetPuntuacion("Mayúsculas", "estrella", "mayusculas")
-			Sequence(SoundInterval(bien), Func(Logro)).start()
-			await Task.pause(8.0)
+			Sequence(Func(Logro)).start()
+			await Task.pause(2.5)
 			progreso.SetProgreso(puntos, progresoNP, "estrella")
 			#SetEstrellas()
 			LetraRandom()
