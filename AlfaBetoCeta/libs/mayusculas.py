@@ -43,12 +43,13 @@ def LetraRandom():
 	l = random.randint(0,26)
 	acertijo = letras[l]
 	Cual()
+	
 
 def Cual():
 	global acertijo, letras
 	cual = base.loader.loadSfx("sound/mensajes/cualdetodas.wav")
 	letra = base.loader.loadSfx("sound/letras/"+acertijo+".wav")
-	Sequence(SoundInterval(cual), SoundInterval(letra)).start()
+	Sequence(Func(picker.SetActive, False), SoundInterval(cual), SoundInterval(letra), Func(picker.SetActive, True)).start()
 
 def SetMayusculas():
 	global progresoNP, puntos 
@@ -166,6 +167,7 @@ async def resultado(result):
 	global puntos
 	global progresoNP
 	# MAL
+	picker.active=False
 	if result==-1:
 		sonido = base.loader.loadSfx("sound/assets/aww.wav")
 		sonido.play()
@@ -173,26 +175,26 @@ async def resultado(result):
 		#SetEstrellas(result)
 		await Task.pause(1.0)
 		Cual()
+		picker.active=True
 	# BIEN
 	else:
 		bien = base.loader.loadSfx("sound/assets/aplausos.wav")
 		if puntos<5:
 			bien.play()
-			#SetEstrellas(result)
 			progreso.SetProgreso(puntos, progresoNP, "estrella", result)
 			await Task.pause(3.0)
 			LetraRandom()
+			picker.active=True
 		else:
 			progreso.SetProgreso(puntos, progresoNP, "estrella", result)
-			#SetEstrellas(result)
 			puntos = 0
 			puntuacion.puntos["mayusculas"] += 1
 			puntuacion.SetPuntuacion("Mayúsculas", "estrella", "mayusculas")
 			Sequence(Func(Logro)).start()
 			await Task.pause(2.5)
 			progreso.SetProgreso(puntos, progresoNP, "estrella")
-			#SetEstrellas()
 			LetraRandom()
+			picker.active=True
 			
 		
 def Logro():
@@ -215,7 +217,7 @@ def Logro():
 		i1 = e1.posHprInterval(0.1+abs(i/6), Vec3(xr, yr, 10), Vec3(0, 0, 360))
 		eanim.append(i1)
 
-	secuencia = Sequence(eanim, eanim, eanim, Func(FinLogro))
+	secuencia = Sequence(Func(picker.SetActive, False), eanim, eanim, eanim, Func(FinLogro), Func(picker.SetActive, True))
 	secuencia.start()
 
 def FinLogro():

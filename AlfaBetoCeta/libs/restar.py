@@ -39,6 +39,7 @@ corazonesNP = False
 ayudaNP = False
 
 def SetResta():
+	picker.active = False
 	global corazonesNP
 	padre = env.nodos["activo"]
 	for n in padre.getChildren(): n.removeNode()
@@ -61,11 +62,12 @@ def RestaRandom():
 
 def Cuanto():
 	global a, b
+	picker.active=False
 	cuanto = base.loader.loadSfx("sound/mensajes/cuantoes.wav")
 	mas = base.loader.loadSfx("sound/numeros/menos.wav")
 	x = base.loader.loadSfx("sound/numeros/"+str(a)+".wav")
 	y = base.loader.loadSfx("sound/numeros/"+str(b)+".wav")
-	Sequence(SoundInterval(cuanto), SoundInterval(x), SoundInterval(mas), SoundInterval(y)).start()
+	Sequence(SoundInterval(cuanto), SoundInterval(x), SoundInterval(mas), SoundInterval(y), Wait(0.5), Func(picker.SetActive, True)).start()
 	pass
 
 def Preguntar(padre):
@@ -211,6 +213,7 @@ def rOut(x, rotar):
 	rotar.setT(0)
 
 def rClick(x, i):
+	picker.active=False
 	global acertijo, a, b, puntos
 	if i == acertijo:   result = 1
 	else:			   result = -1
@@ -221,6 +224,7 @@ def rClick(x, i):
 
 async def resultado(result):
 	global puntos, ayudaNP
+	picker.active=False
 	if result==-1:
 		sonido = base.loader.loadSfx("sound/assets/aww.wav").play()
 		SetCorazones(result)
@@ -245,6 +249,7 @@ async def resultado(result):
 			SetCorazones()
 
 def Logro():
+	picker.active=False
 	chimes = base.loader.loadSfx("sound/assets/level-up.wav")
 	chimes.play()
 	padre = env.nodos["logro"]

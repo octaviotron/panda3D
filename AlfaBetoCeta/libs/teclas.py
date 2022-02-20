@@ -41,6 +41,8 @@ ListenKeyboard = False
 
 def SetTeclas():
 	global teclaNP, logrosNP, avanceNP, ListenKeyboard
+	picker.active=False
+	ListenKeyboard = False
 	padre = env.nodos["activo"]
 	for n in padre.getChildren(): n.removeNode()
 	bg = bganim.SetBgAnim("mariposa", 10, "blink", "morado")
@@ -50,26 +52,29 @@ def SetTeclas():
 	avanceNP = padre.attachNewNode("avance")
 	teclaNP = padre.attachNewNode("TECLA")
 	teclaNP.setZ(-1)
-	base.acceptOnce('keystroke', PressTecla)
-	ListenKeyboard = True
-	#SetLogro()
 	SetAvance()
 	LetraRandom()
 	ShowTecla(padre)
 	puntuacion.SetPuntuacion("Teclas", "mariposa", "teclas")
 
+def ActiveKeyboard():
+	global ListenKeyboard
+	ListenKeyboard = True
+	base.acceptOnce('keystroke', PressTecla)
 
 def LetraRandom():
+	picker.active=False
 	global acertijo, letras
 	l = random.randint(0,26)
 	acertijo = letras[l]
 	Cual()
 
 def Cual():
-	global acertijo, letras
+	picker.active=False
+	global acertijo, letras, ListenKeyboard
 	cual = base.loader.loadSfx("sound/teclas/tecla.wav")
 	letra = base.loader.loadSfx("sound/letras/"+acertijo+".wav")
-	Sequence(SoundInterval(cual), Wait(0.5), SoundInterval(letra)).start()
+	Sequence(SoundInterval(cual), Wait(0.5), SoundInterval(letra), Func(picker.SetActive, True), Func(ActiveKeyboard)).start()
 
 def ShowTecla(padre):
 	global acertijo, teclaNP
@@ -82,6 +87,7 @@ def ShowTecla(padre):
 	mesh.setY(-1)
 	
 def PressTecla(tecla):
+	picker.active=False
 	global acertijo, ListenKeyboard, puntos
 	if not ListenKeyboard:
 		return
@@ -95,6 +101,7 @@ def PressTecla(tecla):
 
 async def resultado(result):
 	global puntos
+	picker.active=False
 	if result==-1:
 		sonido = base.loader.loadSfx("sound/assets/aww.wav").play()
 		SetAvance(result)
@@ -121,6 +128,7 @@ async def resultado(result):
 
 def Logro():
 	global logrosNP
+	picker.active=False
 	chimes = base.loader.loadSfx("sound/assets/level-up.wav")
 	chimes.play()
 	padre = logrosNP
@@ -144,8 +152,9 @@ def Logro():
 	secuencia.start()
 
 def FinLogro():
-	padre = env.nodos["logro"]
-	for n in padre.getChildren(): n.removeNode()
+	global logrosNP
+	for n in logrosNP.getChildren(): n.removeNode()
+	logrosNP.hide()
 
 def MkCorazon():
 	estrella = NodePath("estrella")

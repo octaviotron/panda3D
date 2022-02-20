@@ -41,6 +41,7 @@ corazonesNP = False
 ayudaNP = False
 
 def SumaRandom():
+	picker.active=False
 	global acertijo, a, b
 	a = random.randint(1,6)
 	b = random.randint(1,6)
@@ -48,6 +49,7 @@ def SumaRandom():
 	Cuanto()
 
 def SetSuma():
+	picker.active=False
 	global corazonesNP
 	padre = env.nodos["activo"]
 	for n in padre.getChildren(): n.removeNode()
@@ -62,11 +64,12 @@ def SetSuma():
 
 def Cuanto():
 	global a, b
+	picker.active=False
 	cuanto = base.loader.loadSfx("sound/mensajes/cuantoes.wav")
 	mas = base.loader.loadSfx("sound/numeros/mas.wav")
 	x = base.loader.loadSfx("sound/numeros/"+str(a)+".wav")
 	y = base.loader.loadSfx("sound/numeros/"+str(b)+".wav")
-	Sequence(SoundInterval(cuanto), SoundInterval(x), SoundInterval(mas), SoundInterval(y)).start()
+	Sequence(SoundInterval(cuanto), SoundInterval(x), SoundInterval(mas), SoundInterval(y), Wait(0.5), Func(picker.SetActive, True)).start()
 	pass
 
 def Preguntar(padre):
@@ -200,6 +203,7 @@ def rClick(x, i):
 
 async def resultado(result):
 	global puntos, ayudaNP
+	picker.active=False
 	if result==-1:
 		sonido = base.loader.loadSfx("sound/assets/aww.wav").play()
 		SetCorazones(result)
@@ -221,15 +225,13 @@ async def resultado(result):
 			puntuacion.SetPuntuacion("Sumar", "corazon", "suma")
 			await Task.pause(2.5)
 			SetSuma()
-			SetCorazones()
-			
-			pass
 
 def Logro():
+	picker.active=False
 	chimes = base.loader.loadSfx("sound/assets/level-up.wav")
 	chimes.play()
 	padre = env.nodos["logro"]
-	padre.show()
+	env.nodos["logro"].show()
 	for n in padre.getChildren(): n.removeNode()
 	estrella = padre.attachNewNode("estrella")
 	modelo = loader.loadModel("modelos/assets/corazon.bam")
@@ -251,6 +253,7 @@ def Logro():
 def FinLogro():
 	padre = env.nodos["logro"]
 	for n in padre.getChildren(): n.removeNode()
+	env.nodos["logro"].hide()
 			
 def MkCorazon():
 	estrella = NodePath("estrella")

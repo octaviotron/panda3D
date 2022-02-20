@@ -22,6 +22,7 @@ from pathlib import Path
 
 from panda3d.core import NodePath, Vec3, Material, TransparencyAttrib, CardMaker
 from panda3d.core import CollisionNode, CollisionSphere
+from direct.interval.IntervalGlobal import Sequence, Parallel, Func, SoundInterval, Wait
 
 from libs import env
 from libs import picker
@@ -212,11 +213,12 @@ def icon(nombre, r):
 	return salida
 
 def Overs(x, params):
+	picker.active=False
 	ruta = "sound/menu/"+params[1]+".wav"
 	sonido = Path(ruta)
-	#if sonido.is_file():
-	tipo = base.loader.loadSfx(ruta).play()
+	tipo = base.loader.loadSfx(ruta)
 	params[0].resume()
+	Sequence(SoundInterval(tipo), Func(picker.SetActive, True)).start()
 
 def Outs(x, rotar):
 	rotar.pause()

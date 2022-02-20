@@ -40,6 +40,7 @@ ayudaNP = False
 formas = ["triangulo", "cuadrado", "rectangulo", "circulo", "trapecio", "rombo", "elipse", "cilindro", "cono", "esfera", "piramide"]
 
 def SetFormas():
+	picker.active=False
 	global floresNP
 	padre = env.nodos["activo"]
 	for n in padre.getChildren(): n.removeNode()
@@ -59,10 +60,11 @@ def FormasRandom():
 	Cual()
 
 def Cual():
+	picker.active=False
 	global acertijo
 	cual = base.loader.loadSfx("sound/formas/cuales.wav")
 	forma = base.loader.loadSfx("sound/formas/"+acertijo+".wav")
-	Sequence(SoundInterval(cual), SoundInterval(forma)).start()
+	Sequence(SoundInterval(cual), SoundInterval(forma), Func(picker.SetActive, True)).start()
 
 def SetFlores(signo=0):
 	global puntos, floresNP
@@ -128,7 +130,7 @@ def ButtonForma(nombre, color):
 		"out": globals()["Out"],
 		"out_params": rotar,
 		"click": globals()["Click"],
-		"click_params": nombre
+		"click_params": [nombre, rotar]
 		}
 	#coll.show()
 
@@ -143,10 +145,13 @@ def Out(nodo, rotar):
 	rotar.pause()
 	rotar.setT(0)
 
-def Click(nodo, forma):
+def Click(nodo, params):
+	picker.active=False
+	params[1].pause()
+	params[1].setT(0)
 	global acertijo, puntos
 
-	if acertijo == forma:   result = 1
+	if acertijo == params[0]:   result = 1
 	else:				   result = -1
 	puntos+=result
 	if puntos<=0: puntos = 0
@@ -155,6 +160,7 @@ def Click(nodo, forma):
 
 async def resultado(result):
 	global puntos
+	picker.active=False
 	# MAL
 	if result==-1:
 		sonido = base.loader.loadSfx("sound/assets/aww.wav")
@@ -181,6 +187,7 @@ async def resultado(result):
 			FormasRandom()
 
 def Logro():
+	picker.active=False
 	chimes = base.loader.loadSfx("sound/assets/level-up.wav")
 	chimes.play()
 	padre = env.nodos["logro"]

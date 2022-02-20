@@ -48,7 +48,7 @@ def Cual():
 	global acertijo, letras
 	cual = base.loader.loadSfx("sound/mensajes/cualdetodas.wav")
 	letra = base.loader.loadSfx("sound/letras/"+acertijo+".wav")
-	Sequence(SoundInterval(cual), Wait(0.5), SoundInterval(letra)).start()
+	Sequence(Func(picker.SetActive, False), SoundInterval(cual), Wait(0.5), SoundInterval(letra), Func(picker.SetActive, True)).start()
 
 def SetMinusculas():
 	global estrellasNP
@@ -164,12 +164,14 @@ def Click(nodo, letra):
 async def resultado(result):
 	global puntos
 	# MAL
+	picker.active = False
 	if result==-1:
 		sonido = base.loader.loadSfx("sound/assets/aww.wav")
 		sonido.play()
 		SetEstrellas(result)
 		await Task.pause(1.0)
 		Cual()
+		picker.active = True
 	# BIEN
 	else:
 		bien = base.loader.loadSfx("sound/assets/aplausos.wav")
@@ -178,6 +180,7 @@ async def resultado(result):
 			SetEstrellas(result)
 			await Task.pause(3.0)
 			LetraRandom()
+			picker.active = True
 		else:
 			SetEstrellas(result)
 			puntos = 0
@@ -185,6 +188,7 @@ async def resultado(result):
 			puntuacion.SetPuntuacion("Minúsculas", "estrella", "minusculas")
 			Sequence(Func(Logro)).start()
 			await Task.pause(2.5)
+			picker.active = True
 			SetEstrellas()
 			LetraRandom()
 			
@@ -230,7 +234,7 @@ def Logro():
 		i1 = e1.posHprInterval(0.1+abs(i/6), Vec3(xr, yr, 10), Vec3(0, 0, 360))
 		eanim.append(i1)
 
-	secuencia = Sequence(eanim, eanim, eanim, Func(FinLogro))
+	secuencia = Sequence(Func(picker.SetActive, False),eanim, eanim, eanim, Func(FinLogro),Func(picker.SetActive, True))
 	secuencia.start()
 
 def FinLogro():
