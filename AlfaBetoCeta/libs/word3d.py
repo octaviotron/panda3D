@@ -24,8 +24,8 @@ import random
 def MkWord(word, col="random", center=False, spacing=0.2):
 	salida = NodePath("word")
 	offset = salida.attachNewNode("offset")
-	#          red       green     blue      violet    yellow    pink          brown         cyan      orange      white
-	colors = [(1,0,0,1),(0,1,0,1),(0,0.5,1,1),(1,0,1,1),(1,1,0,1),(1,0.7,0.7,1),(0.5,0.3,0,1),(0,1,1,1),(1,0.5,0,1),(1,1,1,1)]
+	#          red       green     blue      violet    yellow    pink          brown         cyan      orange        black		white
+	colors = [(1,0,0,1),(0,1,0,1),(0,0.5,1,1),(1,0,1,1),(1,1,0,1),(1,0.7,0.7,1),(0.5,0.3,0,1),(0,1,1,1),(1,0.5,0,1),(0,0,0,1),(1,1,1,1)]
 	if isinstance(col, str): 
 		if col=="random":	colcont = random.randint(0,len(colors)-1)
 		else: colcont=int(col)
