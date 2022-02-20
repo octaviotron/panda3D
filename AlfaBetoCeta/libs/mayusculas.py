@@ -35,7 +35,7 @@ import time
 
 acertijo = False
 letras = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"
-puntos = 4
+puntos = 0
 progresoNP = False
 
 def LetraRandom():
