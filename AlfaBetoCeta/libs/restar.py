@@ -26,6 +26,7 @@ from libs import env
 from libs import picker
 from libs import modelos
 from libs import puntuacion
+from libs import bganim
 
 import random
 import time
@@ -41,6 +42,8 @@ def SetResta():
 	global corazonesNP
 	padre = env.nodos["activo"]
 	for n in padre.getChildren(): n.removeNode()
+	bg = bganim.SetBgAnim("corazon", 0, "blink", "verde")
+	bg.reparentTo(padre)
 	RestaRandom()
 	restarNP = padre.attachNewNode("sumar")
 	Preguntar(restarNP)

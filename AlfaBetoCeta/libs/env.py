@@ -46,8 +46,8 @@ color = {
 	"morado":   Vec4(1, 0, 1, 1),
 	"amarillo": Vec4(1, 1, 0, 1),
 	}
-#              rojo     verde     azul     amarillo   cyan     morado     naranja      rosado        marrón
-colors = [ (1,0,0,1),(0,1,0,1),(0,0,1,1),(1,1,0,1),(0,1,1,1),(1,0,1,1),(1,0.5,0,1),(1,0.7,0.7,1),(0.5,0.3,0,1) ]
+#          red       green     blue      violet    yellow    pink          brown         cyan      orange        black      white
+colors = [(1,0,0,1),(0,1,0,1),(0,0.5,1,1),(1,0,1,1),(1,1,0,1),(1,0.7,0.7,1),(0.5,0.3,0,1),(0,1,1,1),(1,0.5,0,1),(0,0,0,1),(1,1,1,1)]
 
 font = {}
 nodos = {}

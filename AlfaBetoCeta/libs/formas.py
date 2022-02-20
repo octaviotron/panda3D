@@ -28,6 +28,7 @@ from libs import env
 from libs import picker
 from libs import modelos
 from libs import puntuacion
+from libs import bganim
 
 import random
 import time
@@ -42,6 +43,8 @@ def SetFormas():
 	global floresNP
 	padre = env.nodos["activo"]
 	for n in padre.getChildren(): n.removeNode()
+	bg = bganim.SetBgAnim("flor", 0, "blink", "naranja")
+	bg.reparentTo(padre)
 	MuestraFormas(padre)
 	floresNP = padre.attachNewNode("flores")
 	SetFlores()

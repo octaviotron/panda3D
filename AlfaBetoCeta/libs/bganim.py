@@ -26,11 +26,12 @@ from libs import env
 
 import random
 
-def SetBgAnim(modelo_anim, anim_type, imagen_fondo):
+def SetBgAnim(modelo_anim, color_modelo, anim_type, imagen_fondo):
 	salida = NodePath("Background")
 	bg = MkBackground(imagen_fondo)
 	bg.reparentTo(salida)
-	animación = Animacion(modelo_anim, anim_type)
+	color = env.colors[color_modelo]
+	animación = Animacion(modelo_anim, color, anim_type)
 	animación.reparentTo(salida)
 	return salida
 
@@ -45,20 +46,20 @@ def MkBackground(fondo):
 	card.setTexture(textura)
 	return bgNP
 
-def Animacion(modelo, tipo):
+def Animacion(modelo, color, tipo):
 	modelo = loader.loadModel("modelos/assets/"+modelo+".bam")
 	salida = NodePath("Anim")
 
-	if tipo == "righttoleft": animacion = AnimRigtToLeft(modelo)
-	if tipo == "blink": animacion = AnimBlink(modelo)
+	if tipo == "righttoleft": animacion = AnimRigtToLeft(modelo, color)
+	if tipo == "blink": animacion = AnimBlink(modelo, color)
 
 	animacion.reparentTo(salida)
 	return salida
 
-def AnimBlink(modelo):
+def AnimBlink(modelo, color):
 	salida = NodePath("Blink")
 	material = Material()
-	material.setDiffuse((1,1,1,1))
+	material.setDiffuse(color)
 	material.setShininess(32)
 	pares = []
 	for x in range(1,20): pares.append([random.uniform(-10,10),random.uniform(-6,6)])
@@ -80,7 +81,7 @@ def AnimBlink(modelo):
 		anim.loop()
 	return salida
 	
-def AnimRigtToLeft(modelo):
+def AnimRigtToLeft(modelo, color):
 	salida = NodePath("Right To Left")
 	y = -6
 	while y < 8:

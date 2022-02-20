@@ -54,7 +54,7 @@ def SetMinusculas():
 	padre = env.nodos["activo"]
 	for n in padre.getChildren(): n.removeNode()
 
-	bg = bganim.SetBgAnim("estrella", "blink", "noche")
+	bg = bganim.SetBgAnim("estrella", 10, "blink", "noche")
 	bg.reparentTo(padre)
 
 	SetLetras(padre)

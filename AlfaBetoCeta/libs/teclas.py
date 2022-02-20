@@ -25,6 +25,7 @@ from direct.task.Task import Task
 from libs import env
 from libs import picker
 from libs import puntuacion
+from libs import bganim
 
 import random
 import time
@@ -41,7 +42,8 @@ def SetTeclas():
 	global teclaNP, logrosNP, avanceNP, ListenKeyboard
 	padre = env.nodos["activo"]
 	for n in padre.getChildren(): n.removeNode()
-
+	bg = bganim.SetBgAnim("mariposa", 10, "blink", "morado")
+	bg.reparentTo(padre)
 	logrosNP = padre.attachNewNode("logros")
 	avanceNP = padre.attachNewNode("avance")
 	teclaNP = padre.attachNewNode("TECLA")
