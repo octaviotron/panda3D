@@ -27,6 +27,7 @@ from libs import env
 from libs import picker
 from libs import puntuacion
 from libs import progreso
+from libs import word3d
 from libs import bganim
 
 import random
@@ -74,7 +75,7 @@ def SetLetras(padre):
 	z = 0
 	c = 0
 	for i in range(0, len(letras)):
-		mayuscula = ButtonLetra(letras[i], env.colors[c])
+		mayuscula = ButtonLetra(letras[i])
 		mayuscula.reparentTo(padre)
 		mayuscula.setPos(x,y,z)
 		x+= 3
@@ -91,6 +92,7 @@ def ButtonCual():
 	nodo = NodePath("cual")
 	mesh = loader.loadModel("modelos/assets/interrogacion.bam")
 	mesh.reparentTo(nodo)
+	mesh.setY(0.5)
 	coll = nodo.attachNewNode(CollisionNode("collision"))
 	coll.node().addSolid(CollisionSphere(0, 0, 0, 1))
 	rotar = mesh.hprInterval(1.0, Vec3(0,0,-360))
@@ -115,15 +117,12 @@ def CualClick(a, b):
 	Cual()
 
 	
-def ButtonLetra(nombre, color):
+def ButtonLetra(nombre):
 	letra = NodePath("letra-"+nombre)
 
-	path = "modelos/letras/mayus/"+nombre+".bam"
-
 	modelo = letra.attachNewNode("modelo")
-	mesh = loader.loadModel(path)
+	mesh = word3d.MkWord(nombre, 4, True)
 	mesh.reparentTo(modelo)
-	modelo.setColor(color)
 	rotar = modelo.hprInterval(1.0, Vec3(0,0,-360))
 	rotar.loop()
 	rotar.pause()
