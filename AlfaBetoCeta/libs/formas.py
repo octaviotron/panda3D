@@ -175,8 +175,8 @@ async def resultado(result):
 			puntos = 0
 			puntuacion.puntos["formas"] += 1
 			puntuacion.SetPuntuacion("Geometría", "flor", "formas")
-			Sequence(SoundInterval(bien), Func(Logro)).start()
-			await Task.pause(8.0)
+			Sequence(Func(Logro)).start()
+			await Task.pause(2.5)
 			SetFlores()
 			FormasRandom()
 

@@ -217,9 +217,9 @@ async def resultado(result):
 			SetCorazones(result)
 			puntos = 0
 			puntuacion.puntos["suma"] += 1
-			Sequence(SoundInterval(bien), Func(Logro)).start()
+			Sequence(Func(Logro)).start()
 			puntuacion.SetPuntuacion("Sumar", "corazon", "suma")
-			await Task.pause(8.0)
+			await Task.pause(2.5)
 			SetSuma()
 			SetCorazones()
 			

@@ -238,9 +238,9 @@ async def resultado(result):
 			SetCorazones(result)
 			puntos = 0
 			puntuacion.puntos["resta"] += 1
-			Sequence(SoundInterval(bien), Func(Logro)).start()
+			Sequence(Func(Logro)).start()
 			puntuacion.SetPuntuacion("Restar", "corazon", "resta")
-			await Task.pause(8.0)
+			await Task.pause(2.5)
 			SetResta()
 			SetCorazones()
 
@@ -270,6 +270,7 @@ def Logro():
 def FinLogro():
 	padre = env.nodos["logro"]
 	for n in padre.getChildren(): n.removeNode()
+	padre.hide()
 
 def MkCorazon():
 	estrella = NodePath("estrella")
