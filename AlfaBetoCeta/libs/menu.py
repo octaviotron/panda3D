@@ -275,7 +275,7 @@ def clearscene():
 
 def SoundTrack(Task):
 	global soundtrack
-	soundtrack = base.loader.loadSfx("sound/OctavioRossell_Victoria.ogg")
+	soundtrack = base.loader.loadSfx("sound/Mia.ogg")
 	soundtrack.setLoop(True)
 	soundtrack.play()
 	soundtrack.setVolume(0.1)
