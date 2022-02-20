@@ -14,7 +14,8 @@ setup(
                 '**/*.bam',
 				'**/*.wav',
 				'**/*.ogg',
-				'**/*.ttf'
+				'**/*.ttf',
+				'**/*.png'
             ],
             'plugins': [
                 'pandagl',
