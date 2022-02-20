@@ -25,6 +25,7 @@ from direct.task.Task import Task
 from libs import env
 from libs import picker
 from libs import puntuacion
+from libs import word3d
 from libs import bganim
 
 import random
@@ -73,13 +74,12 @@ def Cual():
 def ShowTecla(padre):
 	global acertijo, teclaNP
 	for n in teclaNP.getChildren(): n.removeNode()
-	path = "modelos/letras/mayus/"+acertijo+".bam"
+	
 	modelo = teclaNP.attachNewNode("modelo")
-	mesh = loader.loadModel(path)
+	mesh = word3d.MkWord(acertijo, 4, True)
 	mesh.reparentTo(modelo)
 	mesh.setScale(3)
-	#rotar = modelo.hprInterval(1.0, Vec3(0,0,-360))
-	#rotar.loop()
+	mesh.setY(-1)
 	
 def PressTecla(tecla):
 	global acertijo, ListenKeyboard, puntos
