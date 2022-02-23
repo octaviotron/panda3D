@@ -4,15 +4,25 @@ This is a Code Snippet to have a orbit camera around a node.
 
 ## Usage:
 
-File libs/env.py set an empty "CameraGimbal" node attached to render and reparent base.cam into it, so the following mouse commanda will be enabled:
+Just instance gimbal passing the target node you want to control with mouse:
 
-- Middle Mouse Button: enable free movement cam. While pressed mouse rotates CameraGimbal around its HPR degrees
-- Right Mouse Button: resets CameraGimbal HPR to (0,0,0) 
-- Mosue Wheel: Move camera closer or far to the CameraGimbal node
+```python
 
-NOTE: main scene node is rotated 90° because my models are y-fliped to be lay on floor
+gimb = gimbal.gimbal(some_node)
 
-Any comments or advide are welcomed at octavio.rossell@gmail.com
+```
+
+Now target node responds following mouse events:
+
+- middle click:   starts target node rotation over Z and X axis
+- right click:    reset target node rotation
+- mouse wheel:    Zooms in/out camera
+
+There are two important callable methods:
+
+- gimb.Set(another_node): changes target node
+- gimb.Destroy(): unset mouse events listening and end running task
 
 
+Any comments or advice are welcomed at octavio.rossell@gmail.com
 
