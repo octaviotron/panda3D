@@ -13,23 +13,8 @@
 #   with this program. If not, see <https://www.gnu.org/licenses/>. 
 
 
-from panda3d.core import Vec4, Vec3
-from panda3d.core import AmbientLight
-from panda3d.core import AntialiasAttrib
-from panda3d.core import ClockObject
-from panda3d.core import WindowProperties
-from direct.task import Task
-from direct.interval.LerpInterval import LerpPosInterval
-
 from libs import conf
 from libs import light
-
-mouse = False
-mouse_enabled = False
-lastH = 0
-lastP = 0
-newx =0
-newy =0
 
 def SetEnv():
 	base.disableMouse()
@@ -37,14 +22,7 @@ def SetEnv():
 	conf.scene = render.attachNewNode("scene")
 	conf.gimbal = conf.scene.attachNewNode("gimbal")
 
-	conf.camera = render.attachNewNode("CAMERA")
 	base.cam.setPos(0, -40, 0)
-	base.cam.reparentTo(conf.camera)
-
-	globalClock.setMode(ClockObject.MLimited)
-	globalClock.setFrameRate(30)
-
-	#render.setAntialias(AntialiasAttrib.MMultisample)
 
 	light.Ambient(render,0.05)
 	light.Direccional(render, 0.9)
