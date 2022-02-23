@@ -13,12 +13,8 @@
 #   with this program. If not, see <https://www.gnu.org/licenses/>. 
 
 from panda3d.core import Vec3
-from panda3d.core import AmbientLight
-from panda3d.core import WindowProperties
 from direct.task import Task
 from direct.interval.LerpInterval import LerpPosInterval
-
-from libs import conf
 
 mouse = False
 mouse_enabled = False
@@ -29,17 +25,23 @@ newy =0
 gimbal = False
 gimbal_enabled = False
 
-def Set(gimbalnode):
+def Init(gimbalnode):
 	global gimbal, mouse, gimbal_enabled
 	mouse = base.mouseWatcherNode
-	gimbal = gimbalnode
+
+	Set(gimbalnode)
 	gimbal_enabled = True
+
 	taskMgr.add(MouseMove, 'Mouse Move')
 	base.accept('mouse2', MoveCam, [True])
 	base.accept('mouse2-up', MoveCam, [False])
 	base.accept('wheel_up', ZoomCam, [-1])
 	base.accept('wheel_down', ZoomCam, [1])
 	base.accept('mouse3', ResetCam)
+
+def Set(gimbalnode):
+	global gimbal
+	gimbal = gimbalnode
 
 def Unset():
 	global gimbal_enabled, gimbal

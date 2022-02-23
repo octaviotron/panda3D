@@ -46,7 +46,7 @@ def SetEnv():
 
 	#render.setAntialias(AntialiasAttrib.MMultisample)
 
-	light.Ambient(conf.scene,0.05)
-	light.Direccional(conf.scene, 0.9)
+	light.Ambient(render,0.05)
+	light.Direccional(render, 0.9)
 
 

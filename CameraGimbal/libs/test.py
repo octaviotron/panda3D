@@ -16,11 +16,10 @@ from panda3d.core import LineSegs, NodePath
 
 from libs import modelos
 from libs import colors
-from libs import conf
 from libs import cameragimbal
 
 def Test():
-	t = conf.gimbal.attachNewNode("test")
+	t = render.attachNewNode("test")
 	test = t.attachNewNode("test")
 	t.setP(90)
 
@@ -40,11 +39,11 @@ def Test():
 	b.setZ(0.3)
 	b.setY(0)
 
-	cameragimbal.Set(fondo)
+	cameragimbal.Init(fondo)
 
 	base.accept('f', change, [fondo])
 	base.accept('m', change, [b])
 
 def change(model):
-	cameragimbal.gimbal = model
+	cameragimbal.Set(model)
 
