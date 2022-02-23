@@ -2,4 +2,5 @@ AlfaBetoCeta/build
 AlfaBetoCeta/libs/__pycache__/*
 CameraGimbal/libs/__pycache__/*
 *.py[cod]
+build_alfaBetoCeta/
 
