@@ -17,16 +17,20 @@ from direct.task import Task
 from direct.interval.LerpInterval import LerpPosInterval
 from direct.showbase.ShowBase import DirectObject
 
-
-# NodePath rotation class using mouse:
+# NodePath rotation/zoom using mouse:
 #
 #	USAGE:
-#		instance gimbal
-#			gimb = gimbal.gimbal()
-#		set 
-#	middle click:	starts target node rotation over Z and X axis
-# 	right click:	reset target node rotation
-#	mouse wheel:	Zooms in/out camera
+#		instance gimbal passing the target node you want to control with mouse
+#			gimb = gimbal.gimbal(some_node)
+#		if needed, change target node to be controlled
+#			gimb.Set(another_node)
+#		when you no longer need to listen gimbal events mouse and end running task:
+#			gimb.Destroy()
+#
+#	CONTROLS:
+#		middle click:	starts target node rotation over Z and X axis
+# 		right click:	reset target node rotation
+#		mouse wheel:	Zooms in/out camera
 
 class gimbal():
 	def __init__(self, target_node):
