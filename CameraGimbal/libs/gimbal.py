@@ -43,6 +43,7 @@ class gimbal():
 
 		self.lastH = 0
 		self.lastP = 0
+		self.lastR = 0
 		self.newx =0
 		self.newy =0
 		self.listener = DirectObject.DirectObject()
@@ -69,7 +70,7 @@ class gimbal():
 		self.mouse_enabled = action
 		if action:
 			self.newx, self.newy = self.mouse.getMouseX(), self.mouse.getMouseY()
-			self.lastH, self.lastP = self.gimbal.getH(), self.gimbal.getP()
+			self.lastH, self.lastP, self.lastR = self.gimbal.getH(), self.gimbal.getP(), self.gimbal.getR()
 
 	# Updates target rotation values when mouse2 is pressed
 	def MouseMove(self, task):
@@ -78,7 +79,7 @@ class gimbal():
 		if self.mouse_enabled:
 			currentx, currenty = self.mouse.getMouseX(), self.mouse.getMouseY()
 			x, y = currentx-self.newx, currenty-self.newy
-			self.gimbal.setHpr(self.lastH-(360*x*0.5), self.lastP-(360*-y*0.5), 0)
+			self.gimbal.setHpr(0, self.lastP-(360*y*0.5), self.lastR-(360*-x*0.5))
 		return Task.cont
 
 	# Zoom in/out in mouse wheel events
