@@ -12,7 +12,6 @@
 #   You should have received a copy of the GNU General Public License along 
 #   with this program. If not, see <https://www.gnu.org/licenses/>. 
 
-
 from panda3d.core import Vec3
 from panda3d.core import AmbientLight
 from panda3d.core import WindowProperties
@@ -30,10 +29,10 @@ newy =0
 gimbal = False
 gimbal_enabled = False
 
-def Set():
+def Set(gimbalnode):
 	global gimbal, mouse, gimbal_enabled
 	mouse = base.mouseWatcherNode
-	gimbal = conf.gimbal	# conf.camera is an empty node with reparented base.cam
+	gimbal = gimbalnode
 	gimbal_enabled = True
 	taskMgr.add(MouseMove, 'Mouse Move')
 	base.accept('mouse2', MoveCam, [True])

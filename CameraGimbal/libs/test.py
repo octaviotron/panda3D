@@ -40,6 +40,8 @@ def Test():
 	b.setZ(0.3)
 	b.setY(0)
 
+	cameragimbal.Set(fondo)
+
 	base.accept('f', change, [fondo])
 	base.accept('m', change, [b])
 

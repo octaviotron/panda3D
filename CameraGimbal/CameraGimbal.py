@@ -15,7 +15,6 @@
 from direct.showbase.ShowBase import ShowBase
 
 from libs import env
-from libs import cameragimbal
 from libs import test
 
 import simplepbr
@@ -37,7 +36,6 @@ class ElEnvBase(ShowBase):
 		pbr.enable_fog = True
 		
 		env.SetEnv()
-		cameragimbal.Set()
 		test.Test()
 
 app = ElEnvBase()
