@@ -16,7 +16,6 @@ from panda3d.core import LineSegs, NodePath
 
 from libs import modelos
 from libs import colors
-from libs import cameragimbal
 from libs import gimbal
 
 def Test():
