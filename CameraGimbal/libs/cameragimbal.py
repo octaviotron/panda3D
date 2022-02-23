@@ -33,7 +33,7 @@ gimbal_enabled = False
 def Set():
 	global gimbal, mouse, gimbal_enabled
 	mouse = base.mouseWatcherNode
-	gimbal = conf.camera	# conf.camera is an empty node with reparented base.cam
+	gimbal = conf.gimbal	# conf.camera is an empty node with reparented base.cam
 	gimbal_enabled = True
 	taskMgr.add(MouseMove, 'Mouse Move')
 	base.accept('mouse2', MoveCam, [True])

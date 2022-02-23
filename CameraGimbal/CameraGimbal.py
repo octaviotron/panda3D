@@ -16,6 +16,8 @@ from direct.showbase.ShowBase import ShowBase
 
 from libs import env
 from libs import cameragimbal
+from libs import test
+
 import simplepbr
 import gltf
 
@@ -24,37 +26,19 @@ class ElEnvBase(ShowBase):
 		ShowBase.__init__(self)
 		gltf.patch_loader(self.loader)
 		base.setFrameRateMeter(True)
-		p = simplepbr.init()
-		p.msaa_samples = 4
-		p.enable_shadows = True
+		pbr = simplepbr.init()
+		pbr.use_hardware_skinning = True
+		pbr.msaa_samples = 8
+		#pbr.enable_shadows = True
+		pbr.use_330 = True # export MESA_GL_VERSION_OVERRIDE="3.00 ES"
+		pbr.use_normal_maps = True
+		pbr.use_emission_maps = True
+		pbr.use_occlusion_maps = True
+		pbr.enable_fog = True
+		
 		env.SetEnv()
 		cameragimbal.Set()
-		TestGimbal()
-
-def TestGimbal():
-	from libs import modelos
-	from libs import colors
-	from libs import conf
-	from panda3d.core import LineSegs, NodePath
-
-	t = conf.scene.attachNewNode("test")
-	test = t.attachNewNode("test")
-
-	b = modelos.load("assets", "a")
-	b.reparentTo(test)
-	b.setZ(0.5)
-	b.setY(0)
-
-	fondo = modelos.fondo(colors.cyan_d, 3, 3)
-	fondo.reparentTo(test)
-	lines = LineSegs()
-	lines.moveTo(0,0,0)
-	lines.drawTo(10,10,-10)
-	lines.setThickness(5)
-	node = lines.create()
-	np = NodePath(node)
-	np.reparentTo(fondo)
-	np.setLightOff()
+		test.Test()
 
 app = ElEnvBase()
 app.run()

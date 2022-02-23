@@ -35,7 +35,7 @@ def SetEnv():
 	base.disableMouse()
 
 	conf.scene = render.attachNewNode("scene")
-	conf.scene.setP(90)	
+	conf.gimbal = conf.scene.attachNewNode("gimbal")
 
 	conf.camera = render.attachNewNode("CAMERA")
 	base.cam.setPos(0, -40, 0)
@@ -46,7 +46,7 @@ def SetEnv():
 
 	#render.setAntialias(AntialiasAttrib.MMultisample)
 
-	light.Ambient(conf.scene,0.1)
-	light.Direccional(render, 0.8)
+	light.Ambient(conf.scene,0.05)
+	light.Direccional(conf.scene, 0.9)
 
 

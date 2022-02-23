@@ -28,7 +28,7 @@ def load(path, bam, rotation=0):
 
 def LoadGltf(path, name, rotation=0):
 	salida = NodePath(name)
-	a = loader.loadModel("modelos/"+path+"/"+name+".gltf")
+	a = loader.loadModel("modelos/"+path+"/"+name+".glb")
 	a.reparentTo(salida)
 	a.setPos(0,0,0)
 	a.setR(rotation)
