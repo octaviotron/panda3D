@@ -33,9 +33,9 @@ class ElEnvBase(ShowBase):
 		#pbr.enable_shadows = True
 		pbr.use_330 = True
 		pbr.use_normal_maps = True
-		pbr.use_emission_maps = True
-		pbr.use_occlusion_maps = True
-		pbr.enable_fog = True
+		#pbr.use_emission_maps = True
+		#pbr.use_occlusion_maps = True
+		#pbr.enable_fog = True
 		
 		env.SetEnv()
 		test.Test()
