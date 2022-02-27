@@ -22,7 +22,7 @@ def Test():
 	test = t.attachNewNode("test")
 	t.setP(90)
 
-	fondo = MkFondo(Vec4(1,0.5,1,1), 3, 3)
+	fondo = MkFondo(Vec4(0.5,0.5,0.5,1), 3, 3)
 	fondo.reparentTo(test)
 	lines = LineSegs()
 	lines.moveTo(0,0,0)
@@ -33,11 +33,12 @@ def Test():
 	np.reparentTo(fondo)
 	#np.setLightOff()
 
-	b = word3d.word("Esta es Una Prueba", Vec4(1,0.5,1,1))
+	b = word3d.word('i´~["^á$¿/.\\')
 	b.salida.reparentTo(fondo)
 	b.salida.setZ(0.3)
 	b.salida.setY(0)
 	#print(b.all)
+	#b.all[0].ls()
 
 	gimb = gimbal.gimbal(fondo)
 

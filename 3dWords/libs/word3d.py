@@ -26,6 +26,7 @@ class word():
 	def __init__(self, word, color=Vec4(0,0,0,1), center=True, spacing=0.2):
 		self.font_path = "fonts/font.ttf"
 		self.ttf = False
+		self.ttft = False
 		self.word = word
 		self.color = color
 		self.center = center
@@ -40,12 +41,12 @@ class word():
 	def SetFont(self):
 		font = TTFont(self.font_path)
 		cmap = font['cmap']
-		t = cmap.getBestCmap()
+		self.ttft = cmap.getBestCmap()
 		self.ttf = font.getGlyphSet()
 
 	def Ancho(self, letter):
 		bp = BoundsPen(self.ttf)
-		self.ttf[letter].draw(bp)
+		self.ttf[self.ttft[ord(letter)]].draw(bp)
 		bounds = bp.bounds
 		ancho = bounds[2]/1500
 		return ancho
