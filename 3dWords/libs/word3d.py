@@ -63,6 +63,7 @@ class word():
 
 			charnode = self.offset.attachNewNode("letra")
 			charnode.setX(x)
+			charnode.setY(-0.5)
 
 			mesh = self._LoadMesh(letter)
 			mesh.reparentTo(charnode)
