@@ -23,35 +23,38 @@ from fontTools.pens.boundsPen import BoundsPen
 from panda3d.core import NodePath, Vec4, Material
 
 class word():
-	def __init__(self, word, color=Vec4(0,0,0,1), center=True, spacing=0.2):
+	def __init__(self, word):
 		self.font_path = "fonts/font.ttf"
-		self.ttf = False
-		self.ttft = False
+		self._ttf = False
+		self._ttft = False
 		self.word = word
-		self.color = color
-		self.center = center
-		self.spacing = spacing
+		self.color = Vec4(0,0,0,1)
+		self.center = True
+		self.spacing = 0.2
 		self.salida = NodePath("word")
 		self.offset = self.salida.attachNewNode("offset")
 		self.all = []
 
-		self.SetFont()
-		self.EachLetter()
+		self._SetFont()
+		self._EachLetter()
 
-	def SetFont(self):
+	def nodo(self):
+		return self.salida
+
+	def _SetFont(self):
 		font = TTFont(self.font_path)
 		cmap = font['cmap']
-		self.ttft = cmap.getBestCmap()
-		self.ttf = font.getGlyphSet()
+		self._ttft = cmap.getBestCmap()
+		self._ttf = font.getGlyphSet()
 
-	def Ancho(self, letter):
-		bp = BoundsPen(self.ttf)
-		self.ttf[self.ttft[ord(letter)]].draw(bp)
+	def _Ancho(self, letter):
+		bp = BoundsPen(self._ttf)
+		self._ttf[self._ttft[ord(letter)]].draw(bp)
 		bounds = bp.bounds
 		ancho = bounds[2]/1500
 		return ancho
 
-	def EachLetter(self):
+	def _EachLetter(self):
 		x = 0
 		for letter in self.word:
 			if letter==" ":
@@ -61,26 +64,26 @@ class word():
 			charnode = self.offset.attachNewNode("letra")
 			charnode.setX(x)
 
-			mesh = self.LoadMesh(letter)
+			mesh = self._LoadMesh(letter)
 			mesh.reparentTo(charnode)
 			self.all.append(mesh)
 
-			ancho = self.Ancho(letter)
+			ancho = self._Ancho(letter)
 			x+=ancho+self.spacing
 
 		if self.center: self.offset.setX(-x/2)
 
-	def LoadMesh(self, letter):
+	def _LoadMesh(self, letter):
 		nodo = NodePath(letter)
 		model_path = 'fonts/glb/'+str(ord(letter))+'.glb'
 		model = loader.loadModel(model_path)
 
-		material = self.MkMat()
+		material = self._MkMat()
 		model.setMaterial(material, 1)
 		model.reparentTo(nodo)
 		return nodo
 
-	def MkMat(self):
+	def _MkMat(self):
 		material = Material()
 		material.setDiffuse(self.color)
 		material.setShininess(32)
