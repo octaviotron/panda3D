@@ -39,6 +39,7 @@ def Test():
 	b.setZ(0.3)
 	b.setY(0)
 
-	gimb = gimbal.gimbal(fondo)
+	gimb = gimbal.gimbal()
+	gimb.Set(fondo)
 
 

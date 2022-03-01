@@ -33,11 +33,11 @@ from direct.showbase.ShowBase import DirectObject
 #		mouse wheel:	Zooms in/out camera
 
 class gimbal():
-	def __init__(self, target_node):
+	def __init__(self):
 		self.mouse = base.mouseWatcherNode
 		self.mouse_enabled = False			# True when mouse2 is pressed, False on button release
 		self.gimbal_enabled = True			# If set to False, "Mouse Move" task ends
-		self.gimbal = target_node			# Target Node Path to rotate
+		self.gimbal = False					# Target Node Path to rotate
 		self.maxcamfar = -400				# Farest camera can zoom out
 		self.mincamnear = -10				# Nearest camera can zoom in
 
@@ -58,6 +58,7 @@ class gimbal():
 	# Change target node to be rotated
 	def Set(self, newgimbal):
 		self.gimbal = newgimbal
+		self.gimbal_enabled = True
 
 	# Stop "Mouse Move" task and clear events listener 
 	def Destroy(self):
