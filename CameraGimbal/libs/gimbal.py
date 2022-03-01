@@ -39,7 +39,7 @@ class gimbal():
 		self.gimbal_enabled = True			# If set to False, "Mouse Move" task ends
 		self.gimbal = False					# Target Node Path to rotate
 		self.maxcamfar = -400				# Farest camera can zoom out
-		self.mincamnear = -10				# Nearest camera can zoom in
+		self.mincamnear = -5				# Nearest camera can zoom in
 
 		self.lastH = 0
 		self.lastP = 0
@@ -58,7 +58,6 @@ class gimbal():
 	# Change target node to be rotated
 	def Set(self, newgimbal):
 		self.gimbal = newgimbal
-		self.gimbal_enabled = True
 
 	# Stop "Mouse Move" task and clear events listener 
 	def Destroy(self):
@@ -67,7 +66,7 @@ class gimbal():
 
 	# Update target node rotation values while mouse2 is pressed
 	def MoveCam(self,action):
-		if not self.gimbal_enabled: return
+		if not self.gimbal_enabled or not self.gimbal: return
 		self.mouse_enabled = action
 		if action:
 			self.newx, self.newy = self.mouse.getMouseX(), self.mouse.getMouseY()
