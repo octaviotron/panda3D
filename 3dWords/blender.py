@@ -37,8 +37,6 @@ def create_model(character, font_data, font_extrude, font_bevel, model_color):
 			obj.select_set(True)
 			bpy.ops.object.delete()
 
-	word = str(ord(character))
-
 	# Adds a new text object.
 	bpy.ops.object.text_add()
 	text_obj = bpy.data.objects['Text']
