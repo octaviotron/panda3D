@@ -2,14 +2,18 @@
 
 # modified from https://github.com/wixette/font-to-3d-models
 
+# USAGE:  blender -b -P blender.py
+
+
 import sys, os, bpy
 
 def main():
-	print('blender -b -P blender.py')
-
-	characters = ['!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=', '>', '?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '¡', '¢', '£', '¤', '¥', '¦', '§', '¨', '©', 'ª', '«', '¬', '®', '¯', '°', '±', '²', '³', '´', 'µ', '¶', '·', '¸', '¹', 'º', '»', '¼', '½', '¾', '¿', 'À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', '×', 'Ø', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'Þ', 'ß', 'à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ð', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', '÷', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'þ', 'ÿ']
-
+	outdir = "./fonts"
 	font_file = "font.ttf"
+	font_extrude = 0.05
+	font_bevel = 0.03
+	model_color = (0,0,1,1)
+	characters = ['!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=', '>', '?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '¡', '¢', '£', '¤', '¥', '¦', '§', '¨', '©', 'ª', '«', '¬', '®', '¯', '°', '±', '²', '³', '´', 'µ', '¶', '·', '¸', '¹', 'º', '»', '¼', '½', '¾', '¿', 'À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', '×', 'Ø', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'Þ', 'ß', 'à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ð', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', '÷', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'þ', 'ÿ']
 
 	font_path = os.path.join("./fonts", font_file)
 	existed_num = len(bpy.data.fonts)
@@ -22,16 +26,11 @@ def main():
 
 	for c in characters:
 		print(" ----------------> MODELING", c, "(", str(ord(c)), ")")
-		create_model(c, font_data)
-		mkblender(c)
-		mkglb(c)
-		#mkdae(l)
+		create_model(c, font_data, font_extrude, font_bevel, model_color)
+		mkblender(c, outdir)
+		mkglb(c, outdir)
 
-def create_model(character, font_data):
-	font_extrude = .1
-	font_bevel = 0.05
-	model_color = (0,0,1,1)
-
+def create_model(character, font_data, font_extrude, font_bevel, model_color):
 	# Delete all old fonts and meshes (cube)
 	for obj in bpy.data.objects:
 		if obj.type == 'FONT' or obj.type=="MESH":
@@ -83,9 +82,9 @@ def create_model(character, font_data):
 		if obj.type=="MESH":
 			obj.select_set(True)
 
-def mkblender(character):
+def mkblender(character, outdir):
 	blend_file = str(ord(character))+'.blend'
-	blend_dir = "fonts/blender/"
+	blend_dir = os.path.join(outdir, "blender/")
 	if (not os.path.isdir(blend_dir)):
 		os.system('mkdir -p '+blend_dir)
 	blend_path = os.path.join(blend_dir, blend_file)
@@ -96,19 +95,9 @@ def mkblender(character):
 	blend1_path = os.path.join(blend_dir, blend1_file)
 	os.system('rm -f '+blend1_path)
 
-def mkdae(character):
-	dae_file = str(ord(character))+'.dae'
-	dae_dir = "fonts/dae/"
-	if (not os.path.isdir(dae_dir)):
-		os.system('mkdir -p '+dae_dir)
-	dae_path = os.path.join(dae_dir, dae_file)
-	os.system('rm -f '+dae_path)
-	bpy.ops.wm.collada_export(filepath=dae_path, check_existing=False, apply_modifiers=True, selected=True, include_children=True)
-	print("DAE:", dae_path)
-
-def mkglb(character):
+def mkglb(character, outdir):
 	glb_file = str(ord(character))+".glb"
-	glb_dir = "fonts/glb/"
+	glb_dir = os.path.join(outdir, "glb/")
 	if (not os.path.isdir(glb_dir)):
 		os.system('mkdir -p '+glb_dir)
 	glb_path = os.path.join(glb_dir, glb_file)
