@@ -26,9 +26,11 @@ def main():
 
 	for c in characters:
 		print(" ----------------> MODELING", c, "(", str(ord(c)), ")")
-		create_model(c, font_data, font_extrude, font_bevel, model_color)
-		mkblender(c, outdir)
-		mkglb(c, outdir)
+		charname = create_model(c, font_data, font_extrude, font_bevel, model_color)
+		mkblender(charname, outdir)
+		mkglb(charname, outdir)
+
+
 
 def create_model(character, font_data, font_extrude, font_bevel, model_color):
 	# Delete all old fonts and meshes (cube)
@@ -37,11 +39,13 @@ def create_model(character, font_data, font_extrude, font_bevel, model_color):
 			obj.select_set(True)
 			bpy.ops.object.delete()
 
+	charname = str(ord(character))
+
 	# Adds a new text object.
 	bpy.ops.object.text_add()
 	text_obj = bpy.data.objects['Text']
-	text_obj.name = "texto"
-	text_obj.data.name = "texto"
+	text_obj.name = charname
+	text_obj.data.name = charname
 	text_obj.data.body = character
 	text_obj.data.size = 2
 	text_obj.data.font = bpy.data.fonts[font_data]
@@ -80,8 +84,12 @@ def create_model(character, font_data, font_extrude, font_bevel, model_color):
 		if obj.type=="MESH":
 			obj.select_set(True)
 
-def mkblender(character, outdir):
-	blend_file = str(ord(character))+'.blend'
+	return charname
+
+
+
+def mkblender(charname, outdir):
+	blend_file = charname+'.blend'
 	blend_dir = os.path.join(outdir, "blender/")
 	if (not os.path.isdir(blend_dir)):
 		os.system('mkdir -p '+blend_dir)
@@ -89,20 +97,21 @@ def mkblender(character, outdir):
 	os.system('rm -f '+blend_path)
 	bpy.ops.wm.save_mainfile(filepath=blend_path,check_existing = False)
 	# remove buggy .blend1 copy
-	blend1_file = str(ord(character))+'.blend1'
+	blend1_file = charname+'.blend1'
 	blend1_path = os.path.join(blend_dir, blend1_file)
 	os.system('rm -f '+blend1_path)
 
-def mkglb(character, outdir):
-	glb_file = str(ord(character))+".glb"
+
+
+def mkglb(charname, outdir):
+	glb_file = charname+".glb"
 	glb_dir = os.path.join(outdir, "glb/")
 	if (not os.path.isdir(glb_dir)):
 		os.system('mkdir -p '+glb_dir)
 	glb_path = os.path.join(glb_dir, glb_file)
 	os.system('rm -f '+glb_path)
 	bpy.ops.export_scene.gltf(filepath=glb_path, check_existing=False, export_format='GLB', export_copyright='CC-BY-NC', export_tangents=True, use_selection=True)
-	print("GLB", glb_path)
-	
+
 
 main()
 
