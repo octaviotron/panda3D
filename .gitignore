@@ -4,3 +4,6 @@ CameraGimbal/libs/__pycache__/*
 *.py[cod]
 build_alfaBetoCeta/
 *.swp
+
+NetViwR/
+.gitignore
