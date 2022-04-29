@@ -21,7 +21,7 @@ import sys
 import gltf
 
 from direct.showbase.ShowBase import ShowBase
-from panda3d.core import AmbientLight, Vec4
+from panda3d.core import AmbientLight, DirectionalLight, Vec4
 
 from libs import word3d
 
@@ -35,13 +35,20 @@ class ElEnvBase(ShowBase):
 
 	def Main(self):
 		camara = render.attachNewNode("CAMERA")
-		camara.setY(-20)
+		camara.setY(-10)
 		base.camera.reparentTo(camara)
 
 		alight = AmbientLight('Ambient')
-		alight.setColor(Vec4(0.5,0.5,0.5, 1))
+		alight.setColor(Vec4(0.1,0.1,0.1, 1))
 		alnp = render.attachNewNode(alight)
 		render.setLight(alnp)
+		dlight = DirectionalLight('directional')
+		dlight.setColor(Vec4(0.8,0.8,0.8,1))
+		dlnp = render.attachNewNode(dlight)
+		dlnp.setPos(50,-50,50)
+		dlnp.lookAt(0,0,0)
+		render.setLight(dlnp)
+
 		
 		w3d = word3d.Word3d()
 		w3d.fontname = "DejaVuSansMono"
@@ -51,6 +58,8 @@ class ElEnvBase(ShowBase):
 		w3d.spacing = 0
 		label = w3d.Word("Test")
 		label.reparentTo(render)
+
+		label.setHpr(30,100,10)
 
 
 	def _Out(self):
