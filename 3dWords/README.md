@@ -8,18 +8,18 @@ It uses Blender pby for creating and exporting .blend and .glb models.
 
 There is a "panda.py" example file using all configurable features. You can see in the code how to implement this library into Panda3D.
 
-For using in your own environment, copy word3d directory into a loadable module path and call like:
+For using in your own environment, copy "libs" directory and call it like:
 
 ```
-        w3d = word3d.Word3d()
-        w3d.fontname = "DejaVuSansMono"
-        w3d.center = True
-        w3d.color = (0,0,1,1)
-        w3d.scale = 1
-        w3d.spacing = 0
+from libs.word3d import word3d
+...
 
-        label = w3d.Word("Test")
-        label.reparentTo(render)
+w = word3d("FreeSans","Panda3D")
+w.reparentTo(render)
+w.Center()
+w.Color(Vec4(1,0,0,1))
+w.setHpr(10,100,10)
+
 ```
 
 ## Making your own models from a custom Font File
