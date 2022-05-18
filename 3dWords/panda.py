@@ -23,19 +23,20 @@ import gltf
 from direct.showbase.ShowBase import ShowBase
 from panda3d.core import AmbientLight, DirectionalLight, Vec4
 
-from libs import word3d
+from libs.word3d import word3d
 
 class ElEnvBase(ShowBase):
 	def __init__(self):
 		ShowBase.__init__(self)
 		gltf.patch_loader(self.loader)
+
 		self.Main()
 
 		self.accept('escape', self._Out)
 
 	def Main(self):
 		camara = render.attachNewNode("CAMERA")
-		camara.setY(-10)
+		camara.setY(-15)
 		base.camera.reparentTo(camara)
 
 		alight = AmbientLight('Ambient')
@@ -49,18 +50,18 @@ class ElEnvBase(ShowBase):
 		dlnp.lookAt(0,0,0)
 		render.setLight(dlnp)
 
-		
-		w3d = word3d.Word3d()
-		w3d.fontname = "DejaVuSansMono"
-		w3d.center = True
-		w3d.color = (0,0,1,1)
-		w3d.scale = 1
-		w3d.spacing = 0
-		label = w3d.Word("Test")
-		label.reparentTo(render)
+		p1 = word3d("FreeSans","Panda3D")
+		p1.reparentTo(render)
+		p1.Center()
+		p1.Color(Vec4(1,0,0,1))
+		p1.setHpr(10,100,10)
 
-		label.setHpr(30,100,10)
-
+		p2 = word3d("DejaVuSansMono", "Rulz :-)")
+		p2.reparentTo(render)
+		p2.Center()
+		p2.Color(Vec4(1,1,0,1))
+		p2.setZ(-2)
+		p2.setHpr(10,100,10)
 
 	def _Out(self):
 		sys.exit()
