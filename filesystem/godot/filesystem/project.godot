@@ -26,7 +26,7 @@ Meshloader="*res://include/meshloader.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/gamedev_assistant/plugin.cfg")
 
 [plugins]
 
