@@ -1,0 +1,69 @@
+[gd_scene load_steps=8 format=3 uid="uid://banlx7p3r6sqk"]
+
+[ext_resource type="Script" uid="uid://budq8s26bobhn" path="res://escenas/main/main.gd" id="1_paxdn"]
+[ext_resource type="Script" uid="uid://d33fnh3bk86ma" path="res://escenas/main/camera_3d.gd" id="2_e0ogj"]
+
+[sub_resource type="Environment" id="Environment_paxdn"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_paxdn"]
+albedo_color = Color(0, 0, 0.32549, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_e0ogj"]
+material = SubResource("StandardMaterial3D_paxdn")
+size = Vector2(24, 12)
+orientation = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g6o4e"]
+albedo_color = Color(0.192157, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8ujuo"]
+material = SubResource("StandardMaterial3D_g6o4e")
+size = Vector2(24, 12)
+orientation = 0
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_paxdn")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.80665, 55.4137)
+shadow_enabled = true
+directional_shadow_mode = 0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_paxdn")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+fov = 44.4
+script = ExtResource("2_e0ogj")
+
+[node name="Frente" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)
+
+[node name="PlanoFondo" type="MeshInstance3D" parent="Frente"]
+mesh = SubResource("PlaneMesh_e0ogj")
+
+[node name="Directorios" type="Node3D" parent="Frente"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 4.453, 1)
+
+[node name="DirLabel" type="Label3D" parent="Frente/Directorios"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.140784, -0.158963, 0.389102)
+text = "0"
+font_size = 64
+
+[node name="Files" type="Node3D" parent="Frente"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.016, 1)
+
+[node name="FileLabel" type="Label3D" parent="Frente/Files"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.269333)
+text = "0"
+font_size = 64
+
+[node name="Derecha" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 0)
+
+[node name="PlanoFondo" type="MeshInstance3D" parent="Derecha"]
+mesh = SubResource("PlaneMesh_8ujuo")

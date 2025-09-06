@@ -1,0 +1,40 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="filesystem"
+run/main_scene="uid://c1f2hd7qu8n5a"
+config/features=PackedStringArray("4.4", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[audio]
+
+driver/driver="Dummy"
+
+[autoload]
+
+Config="*res://include/config.gd"
+Meshloader="*res://include/meshloader.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray()
+
+[plugins]
+
+ai_assistant_hub/llm_api="openwebui_api"
+ai_assistant_hub/preferences/thinking_target=0
+ai_assistant_hub/preferences/skip_greeting=false
+ai_assistant_hub/preferences/always_scroll_to_bottom=false
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"

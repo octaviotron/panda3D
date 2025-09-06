@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1f2hd7qu8n5a"]
+
+[ext_resource type="Script" uid="uid://ckngcqg1nbpfu" path="res://escenas/intro/intro.gd" id="1_m22rq"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_m22rq"]
+
+[sub_resource type="Environment" id="Environment_m22rq"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.1
+
+[node name="Intro" type="Node3D"]
+script = ExtResource("1_m22rq")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, -5)
+mesh = SubResource("BoxMesh_m22rq")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_m22rq")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.09314)
+text = "Intro
+(press SPACEBAR)"
